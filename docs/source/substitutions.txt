@@ -1,0 +1,2 @@
+.. |NO2| replace:: NO\ :sub:`2`
+.. |O3| replace:: O\ :sub:`3`

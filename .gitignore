@@ -1,0 +1,7 @@
+build/
+_build/
+docs/build/
+docs/_build/
+
+.venv/
+.vscode/
