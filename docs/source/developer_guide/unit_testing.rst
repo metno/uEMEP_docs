@@ -3,7 +3,7 @@
 Unit Testing
 ============
 
-uEMEP uses a custom unit testing system, which is inspired by URL, and is integrated with :bash:`cmake` and :bash:`ctest`. Unit tests are stored in the :bash:`test` directory.
+uEMEP uses a custom unit testing system, which is inspired by `neural-fortran <https://github.com/modern-fortran/neural-fortran>`_, and is integrated with :bash:`cmake` and :bash:`ctest`. Unit tests are stored in the :bash:`test` directory.
 
 Writing tests
 -------------
