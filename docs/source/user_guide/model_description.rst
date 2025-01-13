@@ -16,20 +16,31 @@ uEMEP can use two downscaling methods, both of which are employing Gaussian disp
 1. Emission redistribution
 2. Independent emissions
 
+Emission redistribution is used when only approximate proxy data for emissions are available. In this case, emissions from EMEP are redistributed based on proxies such as population density, road network or landuse data. Independent emissions are used when high resolution emission data are available which are consistent between EMEP and uEMEP.
+
 Subgrid calculation method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The total subgrid contrations, denoted as :math:`C_{SG}(i,j)` in subgrid :math:`(i,j)` are calculated by summing the local component, :math:`C_{SG,local}(i,j)`, and the non-local component, :math:`C_{SG,nonlocal}`, derived from the EMEP grid concentration:
 
 .. math::
     :label: eq:total_subgrid_conc
 
     C_{SG}(i,j) = C_{SG,local}(i,j) + C_{SG,nonlocal}(i,j)
 
+Here, :math:`SG` represents the uEMEP subgrid value, while :math:`G` denotes EMEP grid values in the subsequent equations.
+
+The local part of the concentration is calculated using the following formula:
+
 .. math::
     :label: eq:local_subgrid_conc
 
     C_{SG,local}(i,j) = \sum_{i'=1}^{n_{x}} \sum_{j'=1}^{n_{y}} \frac{E_{SG,local}(i',j')}{U(i,j,i',j')} I\left(r(i,j,i',j'),h(i',j'),z(i,j)\right)
 
-Where :math:`E_{SG,local}` is the emission in each subgrid, :math:`U` is the wind speed which in uEMEP is dependent on the source and receptor subgrid values (see :ref:`user_guide/model_description:Gaussian plume model for hourly calculations`). :math:`n_{x}` and :math:`n_{y}` are the extent of the subgrid calculation window...
+Where :math:`E_{SG,local}` are the emissions attributed to the subgrid, :math:`U` is the wind speed, dependent on both source and receptor subgrid values, :math:`n_{x}` and :math:`n_{y}` define the extent of the subgrid calculation window, :math:`I` is a function determining the dispersion intensity of the emission source with horizontal spatial vectors :math:`r` between the receptor grid points :math:`(i,j)` and the source grid points :math:`(i',j')` at receptor height :math:`z` and source height :math:`h`. The contribution from each proxy emissions subgrid within the calculation window is summed at the receptor subgrid, which is centered within this window (TODO: Figure 1).
+
+
+When using the independent emissions method, the local subgrid emissions, :math:`E_{SG,local}`, are specified directly. In contrast, when using the emission redistribution method, :math:`E_{SG,local}` is derived from the EMEP emission grid, :math:`E_{G}(I,J)`, and the proxy data for emissions, :math:`P_{emission}`, normalized within the EMEP grid as follows:
 
 .. math::
     :label: eq:local_subgrid_emis
