@@ -70,17 +70,25 @@ Moving windows calculations
 
     C_{G,local}(i,j,s) = \sum_{I'=-n_{mw}/2}^{+n_{mw}/2} \sum_{J'=-n_{mw}/2}^{+n_{mw}/2} C_{G,local}(I,J,I',J',s) \; w(i,j,I',J',s)
 
+Two methods are available for calculating these weights: area-based and emission-based. In area-based weighting, :math:`w_{a}`, only the area fraction of the EMEP grid that is within the moving window for the receptor subgrid is included:
+
 .. eq 7
 .. math::
     :label: eq:area_weighting
 
     w_{a}(i,j,I',J') = \frac{\{ a(i,j) \cap A(I',J') \}}{A(I',J')}
 
+Where :math:`A(I',J')` is the area of the EMEP grid and :math:`a(i,j)` is the area of the moving window centered at the receptor subgrid point. 
+
+Emission-based weighting requires high-resolution emission data that are compatible with the EMEP grid dimensions. In this case, :math:`w_{e}` is determined by the fraction of the total subgrid emissions within the moving window and within the EMEP grid:
+
 .. eq 8
 .. math::
     :label: eq:emis_weihting
 
     w_{e}(i,j,I',J',s) = \frac{ \sum e(i,j,I',J',s) :\in \{ a(i,j) \cap A(I',J') \} } { \sum e(i,j,I',J',s) :\in \{ A(I',J') \} }
+
+Where the numerator is the sum of emissions, :math:`e` within the intersection of :math:`a(i,j)` and :math:`A(I',J')` and the demoninator is the sum of emissions within :math:`A(I',J')`.
 
 .. eq 9
 .. math::

@@ -7,4 +7,5 @@ User Guide
 
     tutorial
     model_description
+    input
     configuration
